@@ -1,11 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Clone Repository') {
+        stage('Checkout Repository') {
             steps {
-                script {
-                    sh 'git clone git@github.com:saipraneethkurra/jenkins.git'
-                }
+                checkout scm
             }
         }
     }
