@@ -1,13 +1,12 @@
 pipeline {
     agent any
-    environment {
-        GIT_SSH_COMMAND = "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no"
-    }
     stages {
-        stage('Clone Repository') {
+        stage('SSH to Remote Server') {
             steps {
-                script {
-                    sh 'git clone git@github.com:saipraneethkurra/jenkins.git'
+                withCredentials([sshUserPrivateKey(credentialsId: 'github', keyFileVariable: 'saipraneethkurra')]) {
+                    sh '''
+                    ssh -i "saipraneethkurra" username@your-remote-server "commands to execute"
+                    '''
                 }
             }
         }
